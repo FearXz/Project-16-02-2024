@@ -8,9 +8,13 @@ namespace Project_16_02_2024
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["cart"] != null)
+            // Recupero la lista dei prodotti dal carrello dalla sessione
+            List<Prodotto> cart = (List<Prodotto>)Session["cart"];
+
+            // Controllo se esiste la sessione del carrello
+            // Se esiste, mostro i prodotti nel carrello usando il repeater
+            if (Session["cart"] != null && cart.Count > 0)
             {
-                List<Prodotto> cart = (List<Prodotto>)Session["cart"];
                 Repeater1.DataSource = cart;
                 Repeater1.DataBind();
 
@@ -22,12 +26,15 @@ namespace Project_16_02_2024
                 }
                 totaleCarrello.InnerText = "Totale: " + totale + "€";
             }
+            // Se non esiste, mostro un messaggio che dice che il carrello è vuoto
             else
             {
                 intestazioneCarrello.InnerText = "IL CARRELLO È VUOTO";
             }
         }
-
+        // Metodo per rimuovere un prodotto dal carrello
+        // Viene chiamato quando si clicca sul pulsante "Rimuovi dal carrello"
+        // Il pulsante ha un CommandArgument che contiene l'id del prodotto da rimuovere
         protected void DeleteFromCart_Click(object sender, EventArgs e)
         {
             string idString = ((Button)sender).CommandArgument;
@@ -45,14 +52,13 @@ namespace Project_16_02_2024
             }
             Session["cart"] = cart;
             Response.Redirect(Request.RawUrl);
-
         }
-
+        // Metodo per svuotare il carrello
+        // Viene chiamato quando si clicca sul pulsante "Svuota carrello"
         protected void DeleteAll_Click(object sender, EventArgs e)
         {
             Session["cart"] = null;
             Response.Redirect(Request.RawUrl);
-
         }
     }
 }

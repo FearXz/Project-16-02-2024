@@ -22,6 +22,9 @@ namespace Project_16_02_2024
 
         public static List<Prodotto> listaProdotti = new List<Prodotto>();
 
+        // il metodo ProductSearch restituisce un oggetto di tipo Prodotto
+        // in base all'id passato come parametro
+        // se non trova il prodotto restituisce null
         public static Prodotto ProductSearch(int id)
         {
             Prodotto foundProduct = null;

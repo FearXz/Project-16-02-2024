@@ -9,8 +9,11 @@ namespace Project_16_02_2024
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Se non è un postback
+
             if (!IsPostBack)
             {
+                // Creo dei prodotti e li aggiungo alla lista di prodotti
 
                 Prodotto.listaProdotti.Clear();
                 Prodotto p1 = new Prodotto();
@@ -53,12 +56,14 @@ namespace Project_16_02_2024
                 p5.Prezzo = 80.50;
                 Prodotto.listaProdotti.Add(p5);
 
-
+                // Aggiungo la lista di prodotti al repeater
                 Repeater1.DataSource = Prodotto.listaProdotti;
                 Repeater1.DataBind();
             }
         }
-
+        // Se la session del carrello non esiste lo creo
+        // se esiste aggiungo il prodotto al carrello
+        // e renderizzo la pagina
         protected void addToCart_Click(object sender, EventArgs e)
         {
             string idString = ((Button)sender).CommandArgument;
